@@ -818,7 +818,13 @@ class Kohana_ORM_MPTT extends ORM {
 	 */
 	protected function lock()
 	{
-		$this->_db->query(NULL, 'LOCK TABLE '.$this->_db->quote_table($this->_table_name).' WRITE', TRUE);
+            //3.1 function
+            //$this->_db->query(NULL, 'LOCK TABLE '.$this->_db->quote_table($this->_table_name).' WRITE', TRUE);
+            //3.2 fix
+            $query = 'LOCK TABLES ';
+            $query .= $this->_db->quote_table($this->_table_name) . ' WRITE';
+            $query .= ', ' . $this->_db->quote_table($this->_table_name). ' AS ' . $this->_db->quote_table($this->_object_name) . ' WRITE';
+            $this->_db->query(NULL, $query, TRUE);
 	}
 
 	/**
