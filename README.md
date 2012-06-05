@@ -1,18 +1,22 @@
-# MPTT Library, extends ORM
+## This forks aims to make MPTT work with Kohana 3.2
 
-## Setup
+So far we've only fixed things, so usage is the same than before
+
+## MPTT Library, extends ORM
+
+### Setup
 
 Place module in /modules/ and include the call in your bootstrap.
 
-## Declaring your ORM object
+### Declaring your ORM object
 
 	class Model_Category extends ORM_MPTT {
 	}
 
 
-## Usage Examples
+### Usage Examples
 
-### Creating a root node:
+#### Creating a root node:
 
 	$cat = ORM::factory('Category_Mptt');
 	$cat->name = 'Music';
@@ -20,7 +24,7 @@ Place module in /modules/ and include the call in your bootstrap.
 	echo 'Category ID'.$mptt->id.' set at level '.$cat->lvl.' (scope: '.$cat->scope.')';
 	$c1 = $cat; // Saving id for next example
 
-### Creating a child node:
+#### Creating a child node:
 
 	$cat->clear(); // Clearing ORM object
 	$cat->name = 'Terminology';
