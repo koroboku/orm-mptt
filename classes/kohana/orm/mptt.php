@@ -503,16 +503,18 @@ class Kohana_ORM_MPTT extends ORM {
 			$this->reload();
 
 			$offset = ($left_offset - $this->left());
-			
-			$this->_db->query(Database::UPDATE, 'UPDATE '.$this->_db->quote_table($this->_table_name).' SET `'
+
+			$query = 'UPDATE '.$this->_db->quote_table($this->_table_name).' SET `'
 				. $this->left_column.'` = `'.$this->left_column.'` + '
 				. $offset.', `'.$this->right_column.'` =  `'.$this->right_column.'` + '
 				. $offset.', `'.$this->level_column.'` =  `'.$this->level_column.'` + '
 				. $level_offset.', `'.$this->scope_column.'` = '.$target->scope()
 				. ' WHERE `'.$this->left_column.'` >= '.$this->left().' AND `'
 				. $this->right_column.'` <= '.$this->right().' AND `'
-				. $this->scope_column.'` = '.$this->scope(), TRUE);
-			
+				. $this->scope_column.'` = '.$this->scope();
+
+			$this->_db->query(Database::UPDATE, $query, TRUE);
+
 			$this->delete_space($this->left(), $size);
 		}
 		catch (Kohana_Exception $e)
